@@ -1,0 +1,189 @@
+<form [formGroup]="rowEditForm" (ngSubmit)="saveRecord(f)" #f="ngForm">
+  <table class="table table-bordered" id="marksGrid">
+    <thead>
+      <tr >
+        <th colspan="3" id="tableHeader"><span *ngIf="grade==1">First</span><span  *ngIf="grade== 2">Second</span><span  *ngIf="grade==3">Third</span> Grade Students</th>
+        <th colspan="4">Marks: Out of 100</th>
+      </tr>
+      <tr >
+        <th>Student name</th>
+        <th>Age</th>
+        <th>E-Mail</th>
+        <th>English</th>
+        <th>Maths</th>
+        <th>Science</th>
+        <th>Social Studies</th>
+        <th>Row Action</th>
+      </tr>
+    </thead>
+    <tbody style="overflow: auto">
+      <tr  id="{{'studentRow'+i}}"
+        *ngFor="let item of studentsData; index as i"
+        (click)="enableEditMethod($event, i)"
+      >
+        <ng-container *ngIf="!enableEdit || enableEditIndex !== i">
+          <td>{{ item["studentName"] }}</td>
+          <td>{{ item["age"] }}</td>
+          <td>{{ item["email"] }}</td>
+          <td>{{ item["english"] }}</td>
+          <td>{{ item["maths"] }}</td>
+          <td>{{ item["science"] }}</td>
+          <td>{{ item["socialStudies"] }}</td>
+        </ng-container>
+
+        <ng-container  *ngIf="enableEdit && enableEditIndex == i">
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="studentName"
+              name="studentName"
+              [(ngModel)]="item['studentName']"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="age"
+              name="age"
+              [(ngModel)]="item['age']"
+              id="ageInput"
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.age.errors?.ageNotAllowed"
+              id="ageError"
+            >
+              Invalid age
+            </p>
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.age.errors?.required"
+            >
+              age cannot be empty
+            </p>
+          </td>
+          <td>
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              name="email"
+              [(ngModel)]="item['email']"
+              email
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.email.errors?.email"
+            >
+              Invalid email
+            </p>
+          </td>
+
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              name="english"
+              [(ngModel)]="item['english']"
+              formControlName="english"
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.english.errors?.marksNotAllowed"
+            >
+              Invalid Marks
+            </p>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              name="maths"
+              [(ngModel)]="item['maths']"
+              formControlName="maths"
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.maths.errors?.marksNotAllowed"
+            >
+              Invalid Marks
+            </p>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              name="science"
+              [(ngModel)]="item['science']"
+              formControlName="science"
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.science.errors?.marksNotAllowed"
+            >
+              Invalid Marks
+            </p>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              name="socialStudies"
+              [(ngModel)]="item['socialStudies']"
+              formControlName="socialStudies"
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="f.form.controls.socialStudies.errors?.marksNotAllowed"
+            >
+              Invalid Marks
+            </p>
+          </td>
+          <td>
+             <button
+    *ngIf="enableEdit"
+    (click)="cancel($event)"
+    class="btn btn-secondary cancel"
+    id="cancelBtn"
+  >
+    Cancel
+  </button>
+  <button
+    [disabled]="f.form.status == 'INVALID'"
+    *ngIf="enableEdit"
+    id="saveBtn"
+    class="btn btn-primary"
+    (click)="saveRecord($event)"
+    type="submit"
+  >
+    Save
+  </button>
+                <!-- <button  (click)="cancel($event)" class="btn page-secondary-action-btn" >Cancel</button>
+                <button  id="saveBtn" class="btn page-primary-action-btn" (click)="saveRecord($event)" type="submit">Save</button> -->
+                </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <button
+    *ngIf="enableEdit"
+    (click)="cancel($event)"
+    class="btn btn-secondary cancel"
+    id="cancelBtn"
+  >
+    Cancel
+  </button>
+  <button
+    [disabled]="f.form.status == 'INVALID'"
+    *ngIf="enableEdit"
+    id="saveBtn"
+    class="btn btn-primary"
+    (click)="saveRecord($event)"
+    type="submit"
+  >
+    Save
+  </button> -->
+</form>
+<button type="button" id="backBtn"(click)="backToChart()" class="btn btn-link">Back</button>
