@@ -27,7 +27,7 @@ describe('GridRepresentationComponent', () => {
 
   it('should enable editing', () => {
     const event = new MouseEvent('click');
-    component.enableEditMethod(event,0);
+    component.enableEditMethod(event, 0);
     expect(component.enableEdit).toBeTruthy();
   });
 
@@ -47,37 +47,34 @@ describe('GridRepresentationComponent', () => {
     expect(event.stopPropagation).toHaveBeenCalled();
   });
 
-  it('should backToChart', inject([Router], (router: Router) => {
+  it('should go back to charts', inject([Router], (router: Router) => {
     const routerstub: Router = TestBed.inject(Router);
     spyOn(routerstub, 'navigate');
     component.backToChart();
     expect(router.navigate).toHaveBeenCalled();
   }));
 
-  it('allowedMarks', () => {
-    let control =new FormControl( 101)
+  it('allowedMarks out of range', () => {
+    let control = new FormControl(101);
     let result = component.allowedMarks(control);
-    expect(result).toEqual({marksNotAllowed: true});
+    expect(result).toEqual({ marksNotAllowed: true });
   });
 
   it('allowedMarks in range', () => {
-    let control =new FormControl( 81)
+    let control = new FormControl(81);
     let result = component.allowedMarks(control);
     expect(result).toEqual(null);
   });
 
-  it('allowed age in range', () => {
-    let control =new FormControl(55)
+  it('allowed age out of range', () => {
+    let control = new FormControl(55);
     let result = component.allowedAge(control);
-    expect(result).toEqual({ageNotAllowed: true});
+    expect(result).toEqual({ ageNotAllowed: true });
   });
 
-  it('allowedMarks in range', () => {
-    let control =new FormControl(10)
+  it('allowed Age in range', () => {
+    let control = new FormControl(10);
     let result = component.allowedAge(control);
     expect(result).toEqual(null);
   });
-
-
-
 });

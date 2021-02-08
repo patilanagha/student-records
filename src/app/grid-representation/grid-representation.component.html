@@ -1,11 +1,15 @@
 <form [formGroup]="rowEditForm" (ngSubmit)="saveRecord(f)" #f="ngForm">
   <table class="table table-bordered" id="marksGrid">
     <thead>
-      <tr >
-        <th colspan="3" id="tableHeader"><span *ngIf="grade==1">First</span><span  *ngIf="grade== 2">Second</span><span  *ngIf="grade==3">Third</span> Grade Students</th>
+      <tr>
+        <th colspan="3" id="tableHeader">
+          <span *ngIf="grade == 1">First</span
+          ><span *ngIf="grade == 2">Second</span
+          ><span *ngIf="grade == 3">Third</span> Grade Students
+        </th>
         <th colspan="4">Marks: Out of 100</th>
       </tr>
-      <tr >
+      <tr>
         <th>Student name</th>
         <th>Age</th>
         <th>E-Mail</th>
@@ -17,7 +21,8 @@
       </tr>
     </thead>
     <tbody style="overflow: auto">
-      <tr  id="{{'studentRow'+i}}"
+      <tr
+        id="{{ 'studentRow' + i }}"
         *ngFor="let item of studentsData; index as i"
         (click)="enableEditMethod($event, i)"
       >
@@ -31,7 +36,7 @@
           <td>{{ item["socialStudies"] }}</td>
         </ng-container>
 
-        <ng-container  *ngIf="enableEdit && enableEditIndex == i">
+        <ng-container *ngIf="enableEdit && enableEditIndex == i">
           <td>
             <input
               type="text"
@@ -142,48 +147,30 @@
             </p>
           </td>
           <td>
-             <button
-    *ngIf="enableEdit"
-    (click)="cancel($event)"
-    class="btn btn-secondary cancel"
-    id="cancelBtn"
-  >
-    Cancel
-  </button>
-  <button
-    [disabled]="f.form.status == 'INVALID'"
-    *ngIf="enableEdit"
-    id="saveBtn"
-    class="btn btn-primary"
-    (click)="saveRecord($event)"
-    type="submit"
-  >
-    Save
-  </button>
-                <!-- <button  (click)="cancel($event)" class="btn page-secondary-action-btn" >Cancel</button>
-                <button  id="saveBtn" class="btn page-primary-action-btn" (click)="saveRecord($event)" type="submit">Save</button> -->
-                </td>
+            <button
+              *ngIf="enableEdit"
+              (click)="cancel($event)"
+              class="btn btn-secondary cancel"
+              id="cancelBtn"
+            >
+              Cancel
+            </button>
+            <button
+              [disabled]="f.form.status == 'INVALID'"
+              *ngIf="enableEdit"
+              id="saveBtn"
+              class="btn btn-primary"
+              (click)="saveRecord($event)"
+              type="submit"
+            >
+              Save
+            </button>
+          </td>
         </ng-container>
       </tr>
     </tbody>
   </table>
-  <!-- <button
-    *ngIf="enableEdit"
-    (click)="cancel($event)"
-    class="btn btn-secondary cancel"
-    id="cancelBtn"
-  >
-    Cancel
-  </button>
-  <button
-    [disabled]="f.form.status == 'INVALID'"
-    *ngIf="enableEdit"
-    id="saveBtn"
-    class="btn btn-primary"
-    (click)="saveRecord($event)"
-    type="submit"
-  >
-    Save
-  </button> -->
 </form>
-<button type="button" id="backBtn"(click)="backToChart()" class="btn btn-link">Back</button>
+<button type="button" id="backBtn" (click)="backToChart()" class="btn btn-link">
+  Back
+</button>

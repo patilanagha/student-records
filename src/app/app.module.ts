@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+      echarts: () => import('echarts'),
     }),
   ],
   providers: [],

@@ -14,7 +14,7 @@ export class GridRepresentationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-  studentsData:Array<IStudentRecord>;
+  studentsData: Array<IStudentRecord>;
 
   @ViewChild('f') rowEditFormRef: NgForm;
   enableEdit = false;
@@ -24,9 +24,9 @@ export class GridRepresentationComponent implements OnInit {
   grade;
   ngOnInit(): void {
     this.grade = this.route.snapshot.paramMap.get('id')?.split(' ')[1];
-     this.studentsData = this.getDataService.getStudentaData().filter((rec)=>{
-     return rec.grade ==this.grade;
-     });
+    this.studentsData = this.getDataService.getStudentaData().filter((rec) => {
+      return rec.grade == this.grade;
+    });
 
     this.rowEditForm = new FormGroup({
       studentName: new FormControl(null, [Validators.required]),
@@ -53,6 +53,7 @@ export class GridRepresentationComponent implements OnInit {
       ]),
     });
   }
+
   allowedMarks(control: FormControl): { [s: string]: boolean } {
     if (
       control.value < 0 ||
@@ -63,6 +64,7 @@ export class GridRepresentationComponent implements OnInit {
     }
     return null;
   }
+
   allowedAge(control: FormControl): { [s: string]: boolean } {
     if (
       control.value < 0 ||

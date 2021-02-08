@@ -8,14 +8,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 describe('ChartRepresentationComponent', () => {
   let component: ChartRepresentationComponent;
   let fixture: ComponentFixture<ChartRepresentationComponent>;
-  let router = {
-    navigate: jasmine.createSpy('navigate')
-  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ChartRepresentationComponent ],
-      imports:[RouterTestingModule],
-      //  providers:[{ provide: Router, useValue: router }]
+      imports:[RouterTestingModule]
     })
     .compileComponents();
   });

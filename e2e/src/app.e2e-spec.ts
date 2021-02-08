@@ -1,4 +1,4 @@
-import { browser, logging } from 'protractor';
+import { browser, by, element, logging, protractor } from 'protractor';
 import { AppPage } from './app.po';
 
 describe('workspace-project App', () => {
@@ -10,78 +10,57 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('student-records app is running!');
+    expect(await browser.getTitle()).toEqual('StudentRecords');
+  });
+  it('should go to student grid', async function () {
+    var EC = protractor.ExpectedConditions;
+    await browser.wait(EC.presenceOf(element(by.xpath('//canvas'))), 5000);
+    await element(by.xpath('//canvas')).click();
+    expect(await element(by.id('tableHeader')).getText()).toEqual(
+      'Third Grade Students'
+    );
+    await browser.sleep(1500);
+  });
+
+  it('should show save and cancel button on row edit', async function () {
+   await element(by.id('studentRow0')).click();
+    expect(await element(by.id('cancelBtn')).isDisplayed()).toBeTruthy();
+    expect(await element(by.id('saveBtn')).isDisplayed()).toBeTruthy();
+    await  browser.sleep(1500);
+  });
+
+  it('should show error message on incorrect age', async function () {
+    await element(by.id('ageInput')).sendKeys('5');
+    expect(await element(by.id('ageError')).getText()).toEqual('Invalid age');
+    await browser.sleep(1500);
+  });
+
+  it('should not show error message on correct age', async function () {
+    await  element(by.id('ageInput')).clear();
+    await element(by.id('ageInput')).sendKeys('5');
+    expect(await element(by.id('ageError')).isPresent()).toBeFalsy();
+    await browser.sleep(1500);
+  });
+
+  it('should remove row edit on cancel', async function () {
+    await element(by.id('cancelBtn')).click();
+    expect(await element(by.id('ageInput')).isPresent()).toBeFalsy();
+    await browser.sleep(1500);
+  });
+
+  it('should go back to pie chart', async function () {
+   await element(by.id('backBtn')).click();
+    expect(await element(by.xpath('//canvas')).isPresent()).toBeTruthy();
+    await browser.sleep(1500);
   });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    expect(logs).not.toContain(
+      jasmine.objectContaining({
+        level: logging.Level.SEVERE,
+      } as logging.Entry)
+    );
   });
 });
-
-// import { by, element, protractor } from "protractor";
-
-// const { browser } = require("protractor");
-
-// describe("Student records", function () {
-//   it("should check for title ", async function () {
-//     browser.get("http://localhost:4200/");
-//     expect(browser.getTitle()).toEqual("StudentRecords");
-//     browser.sleep(1500);
-//   });
-
-//   it("should go to student grid", async function () {
-//     var EC = protractor.ExpectedConditions;
-//     await browser.wait(EC.presenceOf(element(by.xpath("//canvas"))), 5000);
-//     await element(by.xpath("//canvas")).click();
-//     // expect(element(by.id("tableHeader")).getText()).toEqual("Third Grade Students");
-//      browser.sleep(1500);
-//   });
-
-//   it("should show save and cancel button on row edit", async function () {
-//     element(by.id("studentRow0")).click();
-//     expect(element(by.id("cancelBtn")).isDisplayed()).toBeTruthy();
-//     expect(element(by.id("saveBtn")).isDisplayed()).toBeTruthy();
-//     browser.sleep(1500);
-//   });
-
-//   it("should show error message on incorrect age", async function () {
-//     element(by.id("ageInput")).sendKeys('5');
-//     // expect(element(by.id("ageError")).getText()).toEqual("Invalid age");
-//     browser.sleep(1500);
-//   });
-
-//   it("should not show error message on correct age", async function () {
-//     element(by.id("ageInput")).clear();
-//     element(by.id("ageInput")).sendKeys('5');
-//     expect(element(by.id("ageError")).isPresent()).toBeFalsy();
-//     browser.sleep(1500);
-//   });
-
-
-
-//   it("should disable save button if error message is present", async function () {
-//     element(by.id("ageInput")).clear();
-//     element(by.id("ageInput")).sendKeys('5r');
-//     expect(element(by.id("saveBtn")).isEnabled()).toBeFalsy();
-//     browser.sleep(1500);
-//   });
-
-//   it("should remove row edit on cancel", async function () {
-//     element(by.id("cancelBtn")).click();
-//     expect(element(by.id("ageInput")).isPresent()).toBeFalsy();
-//     browser.sleep(1500);
-//   });
-
-//   it("should go back to pie chart", async function () {
-//     element(by.id("backBtn")).click();
-//     expect(element(by.xpath("//canvas")).isPresent()).toBeTruthy();
-//     browser.sleep(1500);
-//   });
-
-
-// });
-

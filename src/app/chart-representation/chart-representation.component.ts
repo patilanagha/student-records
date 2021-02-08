@@ -7,11 +7,14 @@ import { GetDataService } from '../get-data.service';
   styleUrls: ['./chart-representation.component.scss'],
 })
 export class ChartRepresentationComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute, private dataService: GetDataService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataService: GetDataService
+  ) {}
   option;
   ngOnInit(): void {
-    this.dataService.getStudentGrade();
-    console.log(this.dataService.getChartData());
+    this.dataService.calculateStudentGrade();
     this.option = {
       id: 'student',
       title: {
@@ -29,7 +32,7 @@ export class ChartRepresentationComponent implements OnInit {
         {
           type: 'pie',
           radius: '80%',
-          data:this.dataService.getChartData(),
+          data: this.dataService.getChartData(),
           emphasis: {
             itemStyle: {
               shadowBlur: 10,

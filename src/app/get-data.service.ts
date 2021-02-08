@@ -4,8 +4,7 @@ import { IStudentRecord } from './grid-representation/models/studentRecord-model
   providedIn: 'root',
 })
 export class GetDataService {
-
-  studentArray:Array<IStudentRecord> = [
+  studentArray: Array<IStudentRecord> = [
     {
       studentName: 'Alice',
       age: 5,
@@ -14,7 +13,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Brandon',
@@ -24,7 +23,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Carry',
@@ -34,7 +33,7 @@ export class GetDataService {
       maths: 10,
       science: 10,
       socialStudies: 10,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Denise',
@@ -44,7 +43,7 @@ export class GetDataService {
       maths: 40,
       science: 40,
       socialStudies: 40,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Emily',
@@ -54,7 +53,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
 
     {
@@ -65,7 +64,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Henry',
@@ -75,7 +74,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Carry',
@@ -85,7 +84,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Denise',
@@ -95,7 +94,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Emily',
@@ -105,7 +104,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
 
     {
@@ -116,7 +115,7 @@ export class GetDataService {
       maths: 90,
       science: 98,
       socialStudies: 87,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Monica',
@@ -126,7 +125,7 @@ export class GetDataService {
       maths: 33,
       science: 33,
       socialStudies: 33,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Carry',
@@ -136,7 +135,7 @@ export class GetDataService {
       maths: 60,
       science: 60,
       socialStudies: 60,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Denise',
@@ -146,7 +145,7 @@ export class GetDataService {
       maths: 50,
       science: 50,
       socialStudies: 50,
-      grade:0
+      grade: 0,
     },
     {
       studentName: 'Emily',
@@ -156,12 +155,18 @@ export class GetDataService {
       maths: 20,
       science: 20,
       socialStudies: 20,
-      grade:0
-    }];
+      grade: 0,
+    },
+  ];
 
   constructor() {}
-
-  getStudentGrade() {
+  grade1Student;
+  grade2Student;
+  grade3Student;
+  calculateStudentGrade() {
+    this.grade1Student = 0;
+    this.grade2Student = 0;
+    this.grade3Student = 0;
     this.studentArray.forEach((studentRecord) => {
       let totalMarks =
         studentRecord.english +
@@ -171,38 +176,26 @@ export class GetDataService {
       let percentageMarks = totalMarks / 4;
       if (percentageMarks < 35) {
         studentRecord['grade'] = 3;
+        this.grade3Student++;
       } else if (percentageMarks < 70) {
         studentRecord['grade'] = 2;
+        this.grade2Student++;
       } else {
         studentRecord['grade'] = 1;
+        this.grade1Student++;
       }
     });
   }
 
-  getChartData()  {
-    let grade1Student=0,grade2Student=0,grade3Student = 0;
-    this.studentArray.forEach((rec)=>{
-      if (rec.grade==1){
-        grade1Student++;
-      }
-      else if(rec.grade==2){
-        grade2Student++;
-      }else if(rec.grade==3){
-        grade3Student++;
-      }
-
-    })
-
+  getChartData() {
     return [
-      { value: grade1Student, name: 'Grade 1' },
-      { value: grade2Student, name: 'Grade 2' },
-      { value: grade3Student, name: 'Grade 3' },
-    ]
+      { value: this.grade1Student, name: 'Grade 1' },
+      { value: this.grade2Student, name: 'Grade 2' },
+      { value: this.grade3Student, name: 'Grade 3' },
+    ];
   }
 
   getStudentaData() {
-
-
     return this.studentArray;
   }
 }
